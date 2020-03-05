@@ -8,20 +8,20 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "fs": "^0.0.1-security",
+    "grunt": "^1.0.4",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-file-append": "^0.0.7",
+    "grunt-jsbeautifier": "^0.2.13",
+    "grunt-rsync": "^3.0.0",
+    "grunt-screeps": "github:cavejay/grunt-screeps",
     "lodash": "^4.17.15",
     "mocha": "^7.1.0",
     "prettier": "^1.19.1",
-    "rollup": "^1.32.0",
-    "rollup-plugin-buble": "^0.19.8",
-    "rollup-plugin-clear": "^2.0.7",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-multi-entry": "^2.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-nodent": "^0.2.2",
-    "rollup-plugin-screeps": "^0.1.2",
     "screeps-server-mockup": "^1.5.0",
     "sinon": "^9.0.0",
     "sinon-chai": "^3.5.0",
-    "source-map": "^0.7.3"
+    "source-map": "^0.7.3",
+    "time-grunt": "^2.0.0"
   }
 }

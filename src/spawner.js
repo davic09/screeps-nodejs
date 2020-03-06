@@ -14,16 +14,16 @@ const spawner = {
             {memory: {role: 'harvester'}});
     }
     if(builders.length < 2) {
-        const newName = 'Harvester' + Game.time;
-        console.log('Spawning new harvester: ' + newName);
+        const newName = 'Builder' + Game.time;
+        console.log('Spawning new builder: ' + newName);
         Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName,
-            {memory: {role: 'harvester'}});
+            {memory: {role: 'builder'}});
     }
     if(upgraders.length < 2) {
-        const newName = 'Harvester' + Game.time;
-        console.log('Spawning new harvester: ' + newName);
+        const newName = 'Upgrader' + Game.time;
+        console.log('Spawning new upgrader: ' + newName);
         Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName,
-            {memory: {role: 'harvester'}});
+            {memory: {role: 'upgrader'}});
     }
 
     if(Game.spawns['Spawn1'].spawning) {

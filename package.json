@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Clifford Workman",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "fs": "^0.0.1-security",

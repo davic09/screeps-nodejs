@@ -2,18 +2,18 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
 
     // Pull defaults (including username and password) from .screeps.json
-    var config = require('./.screeps.json')
+    const config = require('./.screeps.json')
 
     // Allow grunt options to override default configuration
-    var branch = grunt.option('branch') || config.branch || 'default';
-    var email = grunt.option('email') || config.email || process.env.email;
+    const branch = grunt.option('branch') || config.branch || 'default';
+    const email = grunt.option('email') || config.email || process.env.email;
     const token = process.env.SCREEPS_TOKEN;
     // var password = grunt.option('password') || config.password || process.env.password;
-    var ptr = grunt.option('ptr') ? true : config.ptr
-    var private_directory = grunt.option('private_directory') || config.private_directory;
+    const ptr = grunt.option('ptr') ? true : config.ptr
+    const private_directory = grunt.option('private_directory') || config.private_directory;
 
 
-    var currentdate = new Date();
+    const currentdate = new Date();
     grunt.log.subhead('Task Start: ' + currentdate.toLocaleString())
     grunt.log.writeln('Branch: ' + branch)
 

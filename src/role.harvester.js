@@ -1,4 +1,5 @@
 const roleHarvester = {
+  /*test*/
   run: function(creep) {
     if(creep.store.getFreeCapacity() > 0) {
       const sources = creep.room.find(FIND_SOURCES);

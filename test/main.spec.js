@@ -16,6 +16,7 @@ describe("main", () => {
         mockBrain = {
             loop: sinon.spy()
         };
+
         main = build(mockBrain);
     });
 

@@ -1,5 +1,5 @@
-import { expect } from "chai";
-import { getFakeRoom } from "../mock";
+const { expect } = require("chai");
+const { getFakeRoom } = require("../mock");
 
 describe("room", () => {
     let room;

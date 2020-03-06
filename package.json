@@ -20,6 +20,7 @@
     "grunt-screeps": "github:cavejay/grunt-screeps",
     "lodash": "^4.17.15",
     "mocha": "^7.1.0",
+    "path": "^0.12.7",
     "prettier": "^1.19.1",
     "screeps-server-mockup": "^1.5.0",
     "sinon": "^9.0.0",

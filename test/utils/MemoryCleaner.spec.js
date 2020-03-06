@@ -1,8 +1,8 @@
-import chai from "chai";
+const chai = require("chai");
 const expect = chai.expect;
 const should = chai.should();
-import { MemoryCleaner } from "../../../src/utils/MemoryCleaner";
-import { Game, getFakeCreep, Memory } from "../mock";
+const MemoryCleaner = require("../../src/utils/MemoryCleaner");
+const { Game, getFakeCreep, Memory } = require("../mock");
 
 describe("MemoryCleaner", () => {
     let memoryCleaner;

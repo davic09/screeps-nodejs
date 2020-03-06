@@ -15,3 +15,9 @@ Install NodeJS v10. I prefer to use Node Version Manager to acquire this. Then i
 
 ## Build
 `yarn install`
+
+## Test
+`yarn test`
+
+## Deploy
+`grunt`

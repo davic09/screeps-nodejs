@@ -20,7 +20,16 @@ const Memory = {
     creeps: {}
 };
 
+const getFakeRoom = (roomName, mergeObject) => {
+    const roomStub = {
+        name: roomName
+    };
+
+    return Object.assign(roomStub, mergeObject);
+};
+
 module.exports = {
     Game,
-    Memory
+    Memory,
+    getFakeRoom
 };

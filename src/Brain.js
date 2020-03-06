@@ -33,7 +33,7 @@ class Brain {
             return true;
         }
 
-        if (this.isCpuBelowLimit()) {
+        if (isCpuBelowLimit()) {
             this.memoryCleaner.purge();
             Memory.time = Game.time;
             for (const roomName in Game.rooms) {
@@ -41,6 +41,6 @@ class Brain {
             }
         }
     }
-}
+};
 
 module.exports = Brain;

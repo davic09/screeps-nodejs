@@ -1,7 +1,8 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
-import { Brain } from "../../src/Brain";
-import { Game, getFakeRoom, Memory } from "./mock";
+const Brain = require("../src/Brain");
+const { Game, getFakeRoom, Memory } = require("./mock");
+const _ = require("lodash");
 
 describe("Brain", () => {
     let mockMemoryCleaner;

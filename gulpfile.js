@@ -1,6 +1,5 @@
 "use strict";
 
-const fs = require("fs");
 const gulp = require("gulp");
 const screeps = require("gulp-screeps");
 const rename = require("gulp-rename");
@@ -64,9 +63,7 @@ function cleanRequirements(contents, file) {
             console.log('file path: ' + file.path)
             console.log('reqstring: ' + reqstring)
             let rePathed = getReqd.convertRequirePathToScreepsPath(file.path, reqstring, "src");
-            // line = line.replace(/require\("([\.\/]*)([^"]*)/, 'require("' + rePathed + "$2").replace(/\//gi, "_");
             line = line.replace(/require\("([\.\/]*)([^"]*)/, 'require("' + rePathed);
-            // line = line.replace(/require\("([\.\/]*)([^"]*)/, rePathed);
 
         }
 

@@ -25,57 +25,38 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-jsbeautifier")
     grunt.loadNpmTasks("grunt-rsync")
 
-    // // path replace stuff
+    // path replace stuff
 
-    // grunt.registerTask('replace', 'Replaces file paths with _', function () {
-    //     grunt.file.recurse('./build/compiled', ReplaceImports);
-    // });
+    grunt.registerTask('replace', 'Replaces file paths with _', function () {
+        grunt.file.recurse('./dist', ReplaceImports);
+    });
 
-    // // gObj = global grunt object
-    // let ReplaceImports = function (abspath, rootdir, subdir, filename) {
-    //     if (abspath.match(/.js$/) == null) {
-    //         return;
-    //     }
-    //     let file = gObj.file.read(abspath);
-    //     let updatedFile = '';
+    // gObj = global grunt object
+    let ReplaceImports = function (abspath, rootdir, subdir, filename) {
+        const getReqd = require("./tools/getreqd");
+        if (abspath.match(/.js$/) == null) {
+            return;
+        }
+        let file = gObj.file.read(abspath);
+        let updatedFile = '';
 
-    //     let lines = file.split('\n');
-    //     for (let line of lines) {
-    //         // Compiler: IgnoreLine
-    //         if ((line).match(/[.]*\/\/ Compiler: IgnoreLine[.]*/)) {
-    //             continue;
-    //         }
-    //         let reqStr = line.match(/(?:require\(")([^_a-zA-Z0-9]*)([^"]*)/);
-    //         if (reqStr && reqStr != "") {
-    //             let reqPath = subdir ? subdir.split('/') : []; // relative path
-    //             let upPaths = line.match(/\.\.\//gi);
-    //             if (upPaths) {
-    //                 for (let i in upPaths) {
-    //                     reqPath.splice(reqPath.length - 1);
-    //                 }
-    //             } else {
-    //                 let isRelative = line.match(/\.\//gi);
-    //                 if (!isRelative || isRelative == "") {
-    //                     // absolute path
-    //                     reqPath = [];
-    //                 }
-    //             }
+        let lines = file.split('\n');
+        for (let line of lines) {
+            if ((line).match(/[.]*\/\/ Compiler: IgnoreLine[.]*/)) {
+                continue;
+            }
+            let reqStr = line.match(/(?:require\(")([^_a-zA-Z0-9]*)([^"]*)/);
+            if (reqStr && reqStr != "") {
 
-    //             let rePathed = "";
-    //             if (reqPath && reqPath.length > 0) {
-    //                 while (reqPath.length > 0) {
+                let rePathed = getReqd.convertRequirePathToScreepsPath(abspath, reqStr, "src");
+                line = line.replace(/require\("([\.\/]*)([^"]*)/, "require\(\"" + rePathed + "$2").replace(/\//gi, '_');
+            }
 
-    //                     rePathed += reqPath.shift() + "_";
-    //                 }
-    //             }
-    //             line = line.replace(/require\("([\.\/]*)([^"]*)/, "require\(\"" + rePathed + "$2").replace(/\//gi, '_');
-    //         }
+            updatedFile += (line + '\n');
+        }
 
-    //         updatedFile += (line + '\n');
-    //     }
-
-    //     gObj.file.write((rootdir + '/' + (subdir ? subdir + '/' : '') + filename), updatedFile);
-    // }
+        gObj.file.write((rootdir + '/' + (subdir ? subdir + '/' : '') + filename), updatedFile);
+    }
 
     grunt.initConfig({
 
@@ -168,7 +149,6 @@ module.exports = function (grunt) {
                 }
             }
         }
-
     })
 
     // Combine the above into a default task

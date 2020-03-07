@@ -4,24 +4,28 @@ const getreqd = require("../../tools/getreqd");
 describe("getreqd", () => {
     describe("should fix require statements from relative to screeps flat type", () => {
 
-        it("should not append anything to root directory files: src/main.js, require('./main') == './main'", () => {
-            const result = getreqd.convertRequirePathToScreepsPath('../../src/main', 'src');
-            expect(result).to.be.equal.to('./main');
+        it("should not append anything to root directory files", () => {
+            const sourceFile = process.cwd() + '/src/utils/MemoryCleaner.js'
+            const requirePath = '../main';
+            const baseDir = 'src';
+            const result = getreqd.convertRequirePathToScreepsPath(sourceFile, requirePath, baseDir);
+            expect(result).to.be.equal('main');
         });
 
-        it("should resolve correctly for files in a nested directory: src/folder1/myfile, require('./myfile') == './folder1_myfile'", () => {
-            const result = getreqd.convertRequirePathToScreepsPath('../../src/utils/MemoryCleaner', 'src');
-            expect(result).to.be.equal.to('./utils_MemoryCleaner');
+        it("should resolve correctly for files in a nested directory", () => {
+            const sourceFile = process.cwd() + '/src/utils/MemoryCleaner.js'
+            const requirePath = '../prototype/room';
+            const baseDir = 'src';
+            const result = getreqd.convertRequirePathToScreepsPath(sourceFile, requirePath, baseDir);
+            expect(result).to.be.equal('prototype_room');
         });
 
         it("should not resolve non-relative paths: require('lodash') == lodash", () => {
-            const result = getreqd.convertRequirePathToScreepsPath("lodash", "src");
-            expect(result).to.be.equal.to("lodash");
+            const sourceFile = process.cwd() + '/src/utils/MemoryCleaner.js'
+            const requirePath = 'lodash';
+            const baseDir = 'src';
+            const result = getreqd.convertRequirePathToScreepsPath(sourceFile, requirePath, baseDir);
+            expect(result).to.be.equal("lodash");
         });
-
-        it("should break if the file cannot be found", () => {
-            const method = () => getreqd.convertRequirePathToScreepsPath('./my/fake/file');
-            expect(method).to.throw(Error);
-        })
     });
 })

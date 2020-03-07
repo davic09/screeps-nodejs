@@ -10,8 +10,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "findup-sync": "^4.0.0",
     "fs": "^0.0.1-security",
-    "grunt": "^1.0.4",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-file-append": "^0.0.7",
@@ -27,5 +27,6 @@
     "sinon-chai": "^3.5.0",
     "source-map": "^0.7.3",
     "time-grunt": "^2.0.0"
-  }
+  },
+  "dependencies": {}
 }

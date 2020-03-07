@@ -9,13 +9,23 @@ const path = require("path");
  * test/main.spec.js
  * To overcome this, provide your relative path prefix, and it will be removed from the generated path:
  * convertRequirePathToScreepsPath('./logic/myfile', 'src') == "./logic_myfile"
+ * @param absoluteFilePath the path to this file
+ * @param requirePath the path in the require statement in the file
+ * @param additionalRelativePathPrefix an additional path prefix to remove from the screeps name. Use this if you have a sub directory for your source root.
  */
-const convertRequirePathToScreepsPath = (requirePath, additionalRelativePathPrefix) => {
-    const projectAbsolutePath = process.cwd();
-    const removeSubPath = additionalRelativePathPrefix ? `${projectAbsolutePath}/${additionalRelativePathPrefix}` : projectAbsolutePath;
-    const absolutePath = path.resolve(requirePath);
-    const contextPath = absolutePath.replace(removeSubPath, '');
-    const screepsPath = `./${contextPath.replace('/\//gi', '_')}`
+const convertRequirePathToScreepsPath = (absoluteFilePath, requirePath, additionalRelativePathPrefix) => {
+
+    if (requirePath && !requirePath.includes('/')) {
+        return requirePath;
+    }
+
+    const baseDir = process.cwd();
+    const fileParentDir = path.dirname(absoluteFilePath);
+    const changeDir = path.relative(baseDir, fileParentDir);
+    const absoluteDependencyPath = path.resolve(baseDir, changeDir, requirePath);
+    const removeSubPath = additionalRelativePathPrefix ? `${baseDir}/${additionalRelativePathPrefix}/` : `${baseDir}/`;
+    const contextPath = absoluteDependencyPath.replace(removeSubPath, '');
+    const screepsPath = `${contextPath.replace(/\//gi, '_')}`
     return screepsPath;
 }
 

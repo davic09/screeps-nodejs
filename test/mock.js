@@ -21,7 +21,8 @@ const Memory = {
 };
 
 const getFakeRoom = (roomName, mergeObject) => {
-    const Room = require("../src/prototype/room");
+    require("../src/prototype/room");
+
     const roomStub = {
         name: roomName
     };

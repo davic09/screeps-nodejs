@@ -1,25 +1,26 @@
 'use strict'
 
-let fs = require('fs')
-let gulp = require('gulp')
-let screeps = require('gulp-screeps')
-let rename = require('gulp-rename')
-let insert = require('gulp-insert')
-let clean = require('gulp-clean')
-let minimist = require('minimist')
-let git = require('git-rev-sync')
+const fs = require('fs')
+const gulp = require('gulp')
+const screeps = require('gulp-screeps')
+const rename = require('gulp-rename')
+const insert = require('gulp-insert')
+const clean = require('gulp-clean')
+const minimist = require('minimist')
+const git = require('git-rev-sync')
 
-let args = minimist(process.argv.slice(2))
-let commitdate = git.date()
+const args = minimist(process.argv.slice(2))
+const commitdate = git.date()
 
-gulp.task('clean', () => {
-    return gulp.src('dist/', { read: false }).pipe(clean())
-})
-
-gulp.task('copy', ['clean'], () => {
+function clean(cb) {
+    gulp.src('dist/', { read: false }).pipe(clean())
+    cb();
+}
+//  gulp.series(['clean']
+function copy(cb) {
     let src
     src = gulp.src('src/**/*.js')
-    return src.pipe(rename((path) => {
+    src.pipe(rename((path) => {
         let parts = path.dirname.match(/[^/\\]+/g)
         let name = ''
         for (let i in parts) {
@@ -30,17 +31,21 @@ gulp.task('copy', ['clean'], () => {
         name += path.basename
         path.basename = name
         path.dirname = ''
-    })).pipe(insert.transform(function (contents, file) {
-        let name = file.path.match(/[^/\\]+/g)
-        name = name[name.length - 1]
-        if (name === 'version.js') {
-            return `${contents}\nglobal.SCRIPT_VERSION = ${+commitdate}` // jshint ignore:line
-        }
-        return contents
-    })).pipe(gulp.dest('dist/'))
-})
+    }))
+        .pipe(insert.transform(function (contents, file) {
+            let name = file.path.match(/[^/\\]+/g)
+            name = name[name.length - 1]
+            if (name === 'version.js') {
+                return `${contents}\nglobal.SCRIPT_VERSION = ${+commitdate}` // jshint ignore:line
+            }
+            return contents
+        }))
+        .pipe(gulp.dest('dist/'))
+    cb();
+};
 
-function deploy() {
+// gulp.series(['copy']
+function deploy(cb) {
     let config = require('./.screeps.json')
     let opts = config[args.server || 'main']
     let options = {}
@@ -73,14 +78,11 @@ function deploy() {
     options.secure = !!opts.ssl || (options.host === 'screeps.com')
     options.port = opts.port || 443
 
-    return gulp.src('dist/*.js').pipe(screeps(options))
+    gulp.src('dist/*.js').pipe(screeps(options))
+    cb()
 }
-
-gulp.task('deploy', ['copy'], () => {
-    return deploy()
-})
-
-gulp.task('ci-config', ['ci-version'], (cb) => {
+// gulp.series(['ci-version']
+function ciconfig(cb) {
     fs.writeFile('.screeps.json', JSON.stringify({
         main: {
             ptr: !!process.env.SCREEPS_PTR,
@@ -91,9 +93,9 @@ gulp.task('ci-config', ['ci-version'], (cb) => {
             port: process.env.SCREEPS_PORT
         }
     }), cb)
-})
+}
 
-gulp.task('ci-version', (cb) => {
+function civersion(cb) {
     let pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'))
     let seconds = (commitdate.getHours() * 3600) + (commitdate.getMinutes() * 60) + commitdate.getSeconds()
     let year = commitdate.getFullYear()
@@ -101,6 +103,15 @@ gulp.task('ci-version', (cb) => {
     let day = commitdate.getDate()
     pkg.version = `${year}.${month}.${day}-${seconds}`
     fs.writeFile('package.json', JSON.stringify(pkg, null, 2), cb)
-})
+}
 
-gulp.task('default', ['clean', 'copy', 'deploy'])
+gulp.task('default', gulp.series(['clean', 'copy', 'deploy']))
+
+const copySeries = gulp.series(clean, copy);
+const deploySeries = gulp.series(copySeries, deploy);
+
+module.exports = {
+    default: deploySeries,
+    deploy: deploySeries,
+    stage: copySeries
+};

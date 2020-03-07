@@ -1,37 +1,37 @@
 /**
  * Module for commonly useful mock data or stub methods.
  */
-"use strict"
+"use strict";
 
 const Game = {
-    cpu: {
-        bucket: 100,
-        getUsed: () => 20,
-        limit: 20,
-        tickLimit: 20
-    },
-    creeps: {},
-    rooms: {},
-    spawns: {},
-    time: 12345
+  cpu: {
+    bucket: 100,
+    getUsed: () => 20,
+    limit: 20,
+    tickLimit: 20
+  },
+  creeps: {},
+  rooms: {},
+  spawns: {},
+  time: 12345
 };
 
 const Memory = {
-    creeps: {}
+  creeps: {}
 };
 
 const getFakeRoom = (roomName, mergeObject) => {
-    require("../src/prototype/room");
+  require("../src/prototype/room");
 
-    const roomStub = {
-        name: roomName
-    };
+  const roomStub = {
+    name: roomName
+  };
 
-    return Object.assign(roomStub, mergeObject);
+  return Object.assign(roomStub, mergeObject);
 };
 
 module.exports = {
-    Game,
-    Memory,
-    getFakeRoom
+  Game,
+  Memory,
+  getFakeRoom
 };

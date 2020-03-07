@@ -2,8 +2,8 @@ const path = require("path");
 
 /**
  * Converts normal NodeJS require paths into the path expected by Screeps when flattening directories into the file name.
- * 
- * A require statement of a file src/logic/myfile.js will now look like require("./src_logic_myfile"). 
+ *
+ * A require statement of a file src/logic/myfile.js will now look like require("./src_logic_myfile").
  * This is also probably undesirable if you have a project structure like this:
  * src/main.js
  * test/main.spec.js
@@ -14,21 +14,20 @@ const path = require("path");
  * @param additionalRelativePathPrefix an additional path prefix to remove from the screeps name. Use this if you have a sub directory for your source root.
  */
 const convertRequirePathToScreepsPath = (absoluteFilePath, requirePath, additionalRelativePathPrefix) => {
+  if (requirePath && !requirePath.includes("/")) {
+    return requirePath;
+  }
 
-    if (requirePath && !requirePath.includes('/')) {
-        return requirePath;
-    }
-
-    const baseDir = process.cwd();
-    const fileParentDir = path.dirname(absoluteFilePath);
-    const changeDir = path.relative(baseDir, fileParentDir);
-    const absoluteDependencyPath = path.resolve(baseDir, changeDir, requirePath);
-    const removeSubPath = additionalRelativePathPrefix ? `${baseDir}/${additionalRelativePathPrefix}/` : `${baseDir}/`;
-    const contextPath = absoluteDependencyPath.replace(removeSubPath, '');
-    const screepsPath = `${contextPath.replace(/\//gi, '_')}`
-    return screepsPath;
-}
+  const baseDir = process.cwd();
+  const fileParentDir = path.dirname(absoluteFilePath);
+  const changeDir = path.relative(baseDir, fileParentDir);
+  const absoluteDependencyPath = path.resolve(baseDir, changeDir, requirePath);
+  const removeSubPath = additionalRelativePathPrefix ? `${baseDir}/${additionalRelativePathPrefix}/` : `${baseDir}/`;
+  const contextPath = absoluteDependencyPath.replace(removeSubPath, "");
+  const screepsPath = `${contextPath.replace(/\//gi, "_")}`;
+  return screepsPath;
+};
 
 module.exports = {
-    convertRequirePathToScreepsPath
-}
+  convertRequirePathToScreepsPath
+};

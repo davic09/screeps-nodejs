@@ -1,3 +1,3 @@
 Room.prototype.execute = () => {
-    return;
+  return;
 };

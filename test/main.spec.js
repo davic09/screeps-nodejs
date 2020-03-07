@@ -5,31 +5,30 @@ const { Game, Memory } = require("./mock");
 const _ = require("lodash");
 
 describe("main", () => {
+  let main;
+  let mockBrain;
 
-    let main;
-    let mockBrain;
+  beforeEach(() => {
+    global.Game = _.clone(Game);
+    global.Memory = _.clone(Memory);
 
-    beforeEach(() => {
-        global.Game = _.clone(Game);
-        global.Memory = _.clone(Memory);
+    mockBrain = {
+      loop: sinon.spy()
+    };
 
-        mockBrain = {
-            loop: sinon.spy()
-        };
+    main = build(mockBrain);
+  });
 
-        main = build(mockBrain);
-    });
+  it("should export a loop function", () => {
+    expect(main.loop).to.be.a("function");
+  });
 
-    it("should export a loop function", () => {
-        expect(main.loop).to.be.a("function");
-    });
+  it("should return void when called with no context", () => {
+    expect(main.loop()).is.undefined;
+  });
 
-    it("should return void when called with no context", () => {
-        expect(main.loop()).is.undefined;
-    });
-
-    it("should execute the brain loop", () => {
-        main.loop();
-        expect(mockBrain.loop.called).to.be.true;
-    });
+  it("should execute the brain loop", () => {
+    main.loop();
+    expect(mockBrain.loop.called).to.be.true;
+  });
 });

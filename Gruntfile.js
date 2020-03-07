@@ -152,8 +152,8 @@ module.exports = function (grunt) {
     })
 
     // Combine the above into a default task
-    grunt.registerTask('default', ['clean', 'copy:screeps', 'file_append:versioning', 'screeps']);
-    grunt.registerTask('private', ['clean', 'copy:screeps', 'file_append:versioning', 'rsync:private']);
+    grunt.registerTask('default', ['clean', 'copy:screeps', 'replace', 'file_append:versioning', 'screeps']);
+    grunt.registerTask('private', ['clean', 'copy:screeps', 'replace', 'file_append:versioning', 'rsync:private']);
     grunt.registerTask('test', ['jsbeautifier:verify']);
     grunt.registerTask('pretty', ['jsbeautifier:modify']);
 }

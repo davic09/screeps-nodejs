@@ -1,23 +1,33 @@
 # Screeps AI NodeJS
 
-This is an AI for Screeps built in NodeJS. This circumvents some of the limitations imposed by the Screeps engine, such as a flat file hierarchy and the inability to write tests, by using Grunt to package local code into flattened output.
+This is an AI for Screeps built in NodeJS. This circumvents some of the limitations imposed by the Screeps engine, such as a flat file hierarchy and the inability to write tests, by using Gulp to package local code into flattened output.
 
 ## Setup
 
 ### Credentials
 
-From the Gruntfile, you can see how your authentication is provided:
+Credentials are loaded from `credentials.js`:
 
 ```javascript
-var email = grunt.option("email") || config.email || process.env.email;
-const token = process.env.SCREEPS_TOKEN;
-```
+module.exports = {
+  email: process.env.SCREEPS_EMAIL,
+  token: process.env.SCREEPS_TOKEN,
+  branch: "default",
+  ptr: false
 
-It's better not to provide these details in the config file, since they are secrets, and committing them to Screeps or Github could be bad. Export these attributes as environment variables in your shell, ex: `.bashrc`, `.bash_profile`, `.zshrc`, etc. If on Windows (and not in Linux Subsystem for Windows), search environment variables in the start menu and set it up in your own way.
+  // private server only options below
+  // host: 'someprivateserver.com',
+  // port: 9000,
+  // secure: false
+  // password: process.env.SCREEPS_PASSWORD,
+};
+
+```
+As you can see emails, passwords, and access tokens are read from environment variables. It's better not to provide these details in the credentials file, since they are secrets, and committing them to Screeps or Github could be bad. Export these attributes as environment variables in your shell, ex: `.bashrc`, `.bash_profile`, `.zshrc`, etc. If on Windows (and not in Linux Subsystem for Windows), search environment variables in the start menu and set it up in your own way.
 
 ### Tools
 
-Install NodeJS v10. I prefer to use Node Version Manager to acquire this. Then install Grunt with `npm install -g grunt`
+Install NodeJS v10. I prefer to use Node Version Manager to acquire this. Then install Gulp.
 
 ## Build
 
@@ -29,4 +39,4 @@ Install NodeJS v10. I prefer to use Node Version Manager to acquire this. Then i
 
 ## Deploy
 
-`grunt`
+`gulp`

@@ -1,3 +1,11 @@
 {
-    "esversion": 6
+    "esversion": 6,
+    "unused": true,
+    "strict": true,
+    "node": true,
+    "globals": {
+        "Room": true,
+        "Game": true,
+        "Memory": true
+    }
 }

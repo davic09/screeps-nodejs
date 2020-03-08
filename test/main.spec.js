@@ -7,6 +7,7 @@ const _ = require("lodash");
 describe("main", () => {
   let main;
   let mockBrain;
+  let legacyLogic;
 
   beforeEach(() => {
     global.Game = _.clone(Game);
@@ -16,7 +17,9 @@ describe("main", () => {
       loop: sinon.spy()
     };
 
-    main = build(mockBrain);
+    mockLegacyLogic = () => {};
+
+    main = build(mockBrain, mockLegacyLogic);
   });
 
   it("should export a loop function", () => {

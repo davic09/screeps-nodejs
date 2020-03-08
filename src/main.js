@@ -1,43 +1,22 @@
 /**
  * Main module for providing a loop entrypoint for the Screeps engine.
  */
-// "use strict";
+"use strict";
 
-// const Brain = require("./Brain");
-// const MemoryCleaner = require("./utils/MemoryCleaner");
+require("./prototype");
 
-// const memoryCleaner = new MemoryCleaner();
-// let brain = new Brain(memoryCleaner);
+const Brain = require("./Brain");
+const MemoryCleaner = require("./utils/MemoryCleaner");
 
-// /**
-//  * This is the logic loop function.
-//  */
-// const loop = () => {
-//   console.log(`Current game tick is ${Game.time}`);
-//   brain.loop();
-// };
-
-// /**
-//  * Constructor function for the main module.
-//  * @param {Brain} brainInput the brain module for executing loop logic.
-//  */
-// const build = brainInput => {
-//   brain = brainInput;
-//   return { loop };
-// };
-
-// module.exports = {
-//   loop,
-//   build
-// };
+const memoryCleaner = new MemoryCleaner();
+let brain = new Brain(memoryCleaner);
 
 const roleHarvester = require("./role.harvester");
 const roleBuilder = require("./role.builder");
 const roleUpgrader = require("./role.upgrader");
 const spawner = require("./spawner");
-const creepcleaner = require("./creepcleaner");
 
-const loop = () => {
+const oldLoop = () => {
   console.log(`Current game tick is ${Game.time}`);
   for (var name in Game.creeps) {
     var creep = Game.creeps[name];
@@ -54,6 +33,25 @@ const loop = () => {
   spawner.run();
 };
 
+/**
+ * This is the logic loop function.
+ */
+const loop = () => {
+  console.log(`Current game tick is ${Game.time}`);
+  brain.loop();
+  // oldLoop();
+};
+
+/**
+ * Constructor function for the main module.
+ * @param {Brain} brainInput the brain module for executing loop logic.
+ */
+const build = brainInput => {
+  brain = brainInput;
+  return { loop };
+};
+
 module.exports = {
-  loop
+  loop,
+  build
 };

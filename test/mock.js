@@ -20,18 +20,20 @@ const Memory = {
   creeps: {}
 };
 
+const getFakeCreep = () => {
+  return new Creep();
+}
+
 const getFakeRoom = (roomName, mergeObject) => {
-  require("../src/prototype/room");
+  const room = new Room();
+  room.name = roomName;
 
-  const roomStub = {
-    name: roomName
-  };
-
-  return Object.assign(roomStub, mergeObject);
+  return Object.assign(room, mergeObject);
 };
 
 module.exports = {
   Game,
   Memory,
+  getFakeCreep,
   getFakeRoom
 };

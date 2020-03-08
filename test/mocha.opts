@@ -1,0 +1,11 @@
+# mocha.opts
+--require test/setup-node.js
+--ui bdd
+
+--reporter spec
+--bail
+--full-trace
+--colors
+
+--recursive
+--timeout 5000

@@ -1,6 +1,5 @@
 const chai = require("chai");
 const expect = chai.expect;
-const should = chai.should();
 const MemoryCleaner = require("../../src/utils/MemoryCleaner");
 const { Game, getFakeCreep, Memory } = require("../mock");
 

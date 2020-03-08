@@ -1,7 +1,5 @@
 class Game {
-    constructor() {
-
-    }
+  constructor() {}
 }
 
 module.exports = Game;

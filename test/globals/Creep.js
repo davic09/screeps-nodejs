@@ -1,7 +1,5 @@
 class Creep {
-    constructor() {
-
-    }
+  constructor() {}
 }
 
 module.exports = Creep;

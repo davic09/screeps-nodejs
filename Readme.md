@@ -21,8 +21,8 @@ module.exports = {
   // secure: false
   // password: process.env.SCREEPS_PASSWORD,
 };
-
 ```
+
 As you can see emails, passwords, and access tokens are read from environment variables. It's better not to provide these details in the credentials file, since they are secrets, and committing them to Screeps or Github could be bad. Export these attributes as environment variables in your shell, ex: `.bashrc`, `.bash_profile`, `.zshrc`, etc. If on Windows (and not in Linux Subsystem for Windows), search environment variables in the start menu and set it up in your own way.
 
 ### Tools

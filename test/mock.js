@@ -22,7 +22,7 @@ const Memory = {
 
 const getFakeCreep = () => {
   return new Creep();
-}
+};
 
 const getFakeRoom = (roomName, mergeObject) => {
   const room = new Room();

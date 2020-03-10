@@ -1,14 +1,25 @@
 const { expect } = require("chai");
-const { getFakeRoom } = require("../mock");
+const { getFakeRoom, Memory } = require("../mock");
+const _ = require("lodash");
 
 describe("room", () => {
   let room;
 
-  beforeEach(() => {
-    room = getFakeRoom("E01S01");
-  });
+  describe("execute", () => {
 
-  it("should have an execute method", () => {
-    expect(room.execute).to.be.a("function");
+    beforeEach(() => {
+      global.Memory = _.clone(Memory);
+      room = getFakeRoom("E01S01");
+    });
+
+    it("should have an execute method", () => {
+      expect(room.execute).to.be.a("function");
+    });
+
+    // it("should discover it's first directive", () => {
+    //   const expectedDirective = "BUILD_SPAWNER";
+    //   room.execute();
+    //   expect(global.Memory.rooms[room.name].directive).to.equal(expectedDirective);
+    // });
   });
 });

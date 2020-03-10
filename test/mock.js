@@ -2,6 +2,7 @@
  * Module for commonly useful mock data or stub methods.
  */
 "use strict";
+const Room = require("./globals/Room");
 
 const Game = {
   cpu: {
@@ -25,9 +26,7 @@ const getFakeCreep = () => {
 };
 
 const getFakeRoom = (roomName, mergeObject) => {
-  const room = new Room();
-  room.name = roomName;
-
+  const room = new Room(roomName);
   return Object.assign(room, mergeObject);
 };
 

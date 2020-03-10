@@ -17,7 +17,7 @@ describe("main", () => {
       loop: sinon.spy()
     };
 
-    mockLegacyLogic = () => {};
+    mockLegacyLogic = () => { };
 
     main = build(mockBrain, mockLegacyLogic);
   });

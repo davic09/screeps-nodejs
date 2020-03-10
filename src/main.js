@@ -3,7 +3,7 @@
  */
 "use strict";
 
-require("./prototype");
+require("./prototype/index");
 
 const Brain = require("./Brain");
 const MemoryCleaner = require("./utils/MemoryCleaner");

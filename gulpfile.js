@@ -54,7 +54,7 @@ function cleanRequirements(contents, file) {
     }
     let reqStr = line.match(/(?:require\(")([^_a-zA-Z0-9]*)([^"]*)/);
     if (reqStr && reqStr != "") {
-      const reqstring = reqStr[reqStr.length - 1];
+      const reqstring = reqStr.slice(1).join("");
       let rePathed = getReqd.convertRequirePathToScreepsPath(file.path, reqstring, "src");
       console.log("correcting require path in " + file.path + " from " + reqstring + " to " + rePathed);
       line = line.replace(/require\("([\.\/]*)([^"]*)/, 'require("' + rePathed);

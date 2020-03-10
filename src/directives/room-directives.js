@@ -1,4 +1,4 @@
 module.exports = {
-    UNKNOWN: -1,
-    BUILD_SPAWNER: 0
-}
+  UNKNOWN: -1,
+  BUILD_SPAWNER: 0
+};

@@ -89,3 +89,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Coverage reporting
+.nyc_output/
+coverage/

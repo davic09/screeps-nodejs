@@ -1,37 +1,29 @@
-/**
- * Main module for providing a loop entrypoint for the Screeps engine.
- */
 "use strict";
 
-require("./prototype/index");
+const miner = require("./roles/miner");
+const builder = require("./roles/builder");
+const upgrader = require("./roles/upgrader");
+const fueler = require("./roles/fueler");
+const spawner = require("./spawn/spawner");
+const creepcleaner = require("./creepcleaner")
 
-const Brain = require("./Brain");
-const MemoryCleaner = require("./utils/MemoryCleaner");
-
-const memoryCleaner = new MemoryCleaner();
-let brain = new Brain(memoryCleaner);
-let legacyLogic = require("./deprecated/legacy");
-
-/**
- * This is the logic loop function.
- */
-const loop = () => {
+module.exports.loop = function () {
   console.log(`Current game tick is ${Game.time}`);
-  brain.loop();
-  legacyLogic();
-};
-
-/**
- * Constructor function for the main module.
- * @param {Brain} brainInput the brain module for executing loop logic.
- */
-const build = (brainInput, legacyLogicInput) => {
-  brain = brainInput;
-  legacyLogic = legacyLogicInput;
-  return { loop };
-};
-
-module.exports = {
-  loop,
-  build
+  for (var name in Game.creeps) {
+    const creep = Game.creeps[name];
+    if (creep.memory.role == "miner") {
+      miner.run(creep);
+    }
+    if (creep.memory.role == "upgrader") {
+      upgrader.run(creep);
+    }
+    if (creep.memory.role == "builder") {
+      builder.run(creep);
+    }
+    if (creep.memory.role == "fueler") {
+      fueler.run(creep);
+    }
+  }
+  spawner.run();
+  creepcleaner.run();
 };

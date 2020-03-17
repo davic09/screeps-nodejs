@@ -31,19 +31,14 @@ const builder = {
         creep.moveTo(targets[0], { visualizePathStyle: { stroke: "#ffaa00" } });
         }
     }
-    if (energy == 0 && ruins) {
+    if (energy == 0 && ruins && targets) {
       if (creep.withdraw(ruins[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
       creep.moveTo(ruins[0], { visualizePathStyle: { stroke: "#ffaa00" } });
       }
     }
-    if (energy == 0 && !targets && !ruins) {
+    else  {
       if (creep.withdraw((droppedenergy[0]), RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
           creep.moveTo(droppedenergy[0], {visualizePathStyle: { stroke: "ffaa00"} });
-      }
-    }
-    else {
-      if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: "#ffffff" } });
       }
     }
   }

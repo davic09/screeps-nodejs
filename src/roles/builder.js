@@ -17,7 +17,7 @@ const builder = {
           structure.store[RESOURCE_ENERGY] > 0)
     })
     const repairtargets = creep.room.find(FIND_STRUCTURES, {
-      filter: object => object.hits < object.hitsMax
+      filter: object => object.hits < 100
   });
     repairtargets.sort((a,b) => a.hits - b.hits);
     if (energy > 0 && buildsites) {

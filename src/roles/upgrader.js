@@ -30,8 +30,8 @@ const upgrader = {
           }
         }
         else {
-          if (creep.harvest(mysource[1]) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(mysource[1], { visualizePathStyle: { stroke: "#ffaa00" } });
+          if (creep.harvest(mysource[0]) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(mysource[0], { visualizePathStyle: { stroke: "#ffaa00" } });
           }
         }
       }

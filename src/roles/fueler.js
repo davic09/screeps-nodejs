@@ -45,7 +45,6 @@ const fueler = {
           return 1; // s2 should be further up the list than s1
         });
       if (deposits.length > 0) {
-        console.log(deposits[0])
         if (creep.transfer(deposits[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
           creep.moveTo(deposits[0], { visualizePathStyle: { stroke: "#ffffff" } });
         }

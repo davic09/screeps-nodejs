@@ -18,7 +18,7 @@ const upgrader = {
           filter: storage => 
           (storage.store[RESOURCE_ENERGY] > 0)
         });
-        if (creep.store.getFreeCapacity () > 0 && ruin) {
+        if (creep.store.getFreeCapacity () > 0 && (ruin && ruin[0] !== undefined)) {
           if (creep.withdraw(ruin[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
             creep.moveTo(ruin[0], { visualizePathStyle: { stroke: "#ffaa00" } });
           }

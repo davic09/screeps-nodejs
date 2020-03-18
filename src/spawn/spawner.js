@@ -19,7 +19,6 @@ const spawner = {
       const roomMemory = getRoomMemory(myRoomName);
       return (roomMemory.sources = roomMemory.sources || Game.rooms[myRoomName].find(FIND_SOURCES).map(source => source.id));
     }
-
     if (fuelers.length < 2) {
       const newName = "fueler" + Game.time;
       console.log("Spawning new fueler: " + newName);
@@ -33,7 +32,7 @@ const spawner = {
           console.log("Spawning new miner: " + newName);
           Game.spawns["Spawn1"].spawnCreep([WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
       }
-}
+    }
     if (builders < 3) {
       const newName = "Builder" + Game.time;
       console.log("Spawning new builder: " + newName);
@@ -44,7 +43,6 @@ const spawner = {
       console.log("Spawning new upgrader: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: "upgrader" } });
     }
-
     if (Game.spawns["Spawn1"].spawning) {
       const spawnCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name];
       Game.spawns["Spawn1"].room.visual.text(

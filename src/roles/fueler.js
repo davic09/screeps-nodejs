@@ -2,7 +2,8 @@ const fueler = {
   /** @param {Creep} creep **/
   run: function(creep) {
     const target = creep.room.find(FIND_DROPPED_RESOURCES);
-    if (creep.store.getFreeCapacity() > 0) {
+    const energy = creep.store[RESOURCE_ENERGY]
+    if (energy == 0) {
       if (target) {
       //figure out how to account for minerals etc.//
         if (creep.pickup(target[0]) == ERR_NOT_IN_RANGE) {
@@ -41,6 +42,11 @@ const fueler = {
       if (deposits.length > 0) {
         if (creep.transfer(deposits[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
           creep.moveTo(deposits[0], { visualizePathStyle: { stroke: "#ffffff" } });
+        }
+      }
+      else {
+        if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+          creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: "#ffffff" } });
         }
       }
     }

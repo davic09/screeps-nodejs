@@ -33,7 +33,7 @@ const spawner = {
           Game.spawns["Spawn1"].spawnCreep([WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
       }
     }
-    if (builders.length < 3 && buildsites) {
+    if (builders.length < 2 && buildsites) {
       const newName = "Builder" + Game.time;
       console.log("Spawning new builder: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, { memory: { role: "builder" } });

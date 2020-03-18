@@ -27,19 +27,25 @@ const fueler = {
             ((structure.structureType == STRUCTURE_EXTENSION ||
               structure.structureType == STRUCTURE_TOWER || 
               structure.structureType == STRUCTURE_CONTAINER || 
-              structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_SPAWN) &&
+              structure.structureType == STRUCTURE_STORAGE || 
+              structure.structureType == STRUCTURE_SPAWN) &&
               structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
         })
         .sort((s1, s2) => {
           if (s1.structureType === STRUCTURE_TOWER || 
-            (s1.structureType === (STRUCTURE_EXTENSION && s2.structureType !== STRUCTURE_TOWER)) || 
-            (s1.structureType === STRUCTURE_CONTAINER && (s2.structureType !== (STRUCTURE_TOWER || 
-              STRUCTURE_EXTENSION))) || (s2.structureType === STRUCTURE_SPAWN)) {
+            (s1.structureType === STRUCTURE_EXTENSION && s2.structureType === STRUCTURE_CONTAINER) ||
+            (s1.structureType === STRUCTURE_EXTENSION && s2.structureType === STRUCTURE_STORAGE) ||
+            (s1.structureType === STRUCTURE_EXTENSION && s2.structureType === STRUCTURE_SPAWN) ||
+            (s1.structureType === STRUCTURE_CONTAINER && s2.structureType === STRUCTURE_STORAGE) ||
+            (s1.structureType === STRUCTURE_CONTAINER && s2.structureType === STRUCTURE_SPAWN) ||
+            (s1.structureType === STRUCTURE_STORAGE && s2.structureType === STRUCTURE_SPAWN) || 
+            (s2.structureType === STRUCTURE_SPAWN)) {
             return -1; // s1 should be further up the list than s2
           }
           return 1; // s2 should be further up the list than s1
         });
       if (deposits.length > 0) {
+        console.log(deposits[0])
         if (creep.transfer(deposits[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
           creep.moveTo(deposits[0], { visualizePathStyle: { stroke: "#ffffff" } });
         }

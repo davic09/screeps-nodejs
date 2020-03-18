@@ -30,7 +30,7 @@ const spawner = {
       const unassignedSources = getRoomSources(myRoomName).filter(roomSource => !minerAssignedSources.includes(roomSource));
       if (unassignedSources.length > 0) {
           console.log("Spawning new miner: " + newName);
-          Game.spawns["Spawn1"].spawnCreep([WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
+          Game.spawns["Spawn1"].spawnCreep([WORK, WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
       }
     }
     if (builders.length < 2 && buildsites) {

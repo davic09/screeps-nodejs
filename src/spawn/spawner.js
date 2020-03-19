@@ -2,6 +2,8 @@ const spawner = {
   run: function() {
     const fuelers = _.filter(Game.creeps, creep => creep.memory.role == "fueler");
     console.log("fuelers: " + fuelers.length);
+    const repairers = _.filter(Game.creeps, creep => creep.memory.role == "repairer");
+    console.log("repairers: " + repairers.length);
     const builders = _.filter(Game.creeps, creep => creep.memory.role == "builder");
     console.log("Builders: " + builders.length);
     const upgraders = _.filter(Game.creeps, creep => creep.memory.role == "upgrader");
@@ -47,11 +49,15 @@ const spawner = {
       console.log("Spawning new upgrader: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, MOVE, MOVE], newName, { memory: { role: "upgrader" } });
     }
-    if (attackers.length < 3 && (flag || enemytargets)) {
+    if (attackers.length < 3 && (flag !== undefined || enemytargets[0] !== undefined)) {
       const newName = "Attacker" + Game.time;
       console.log("Spawning new attacker: " + newName);
       Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, { memory: { role: "attacker" } });
     }
+    if (repairers.length < 1) {
+      const newName = "Repairer" + Game.time;
+      console.log("Spawning new repairer: " + newName);
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: "repairer" } });
     if (Game.spawns["Spawn1"].spawning) {
       const spawnCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name];
       Game.spawns["Spawn1"].room.visual.text(

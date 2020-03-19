@@ -1,6 +1,7 @@
 "use strict";
 
 const miner = require("./roles/miner");
+const repairer = require("./roles/repairer");
 const builder = require("./roles/builder");
 const upgrader = require("./roles/upgrader");
 const fueler = require("./roles/fueler");
@@ -27,6 +28,9 @@ module.exports.loop = function () {
     }
     if (creep.memory.role == "attacker") {
       attacker.run(creep);
+    }
+    if (creep.memory.role == "repairer") {
+      repairer.run(creep);
     }
   }
   spawner.run();

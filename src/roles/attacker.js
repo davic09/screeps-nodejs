@@ -18,7 +18,7 @@ const attacker = {
             creep.moveTo(Game.flags['Flag1']);
             creep.say('CONVOY');
 	    }
-	    else if(enemyspawn) {
+	   else if(enemyspawn) {
             if(creep.attack(enemyspawn) == ERR_NOT_IN_RANGE) {
             creep.moveTo(enemyspawn);
             }

@@ -4,8 +4,10 @@ const miner = require("./roles/miner");
 const builder = require("./roles/builder");
 const upgrader = require("./roles/upgrader");
 const fueler = require("./roles/fueler");
+const attacker = require("./roles/attacker");
 const spawner = require("./spawn/spawner");
 const creepcleaner = require("./creepcleaner")
+const safemode = require("./safemode");
 
 module.exports.loop = function () {
   console.log(`Current game tick is ${Game.time}`);
@@ -23,7 +25,11 @@ module.exports.loop = function () {
     if (creep.memory.role == "fueler") {
       fueler.run(creep);
     }
+    if (creep.memory.role == "attacker") {
+      attacker.run(creep);
+    }
   }
   spawner.run();
   creepcleaner.run();
+  safemode.run();
 };

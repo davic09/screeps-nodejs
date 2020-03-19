@@ -8,6 +8,8 @@ const spawner = {
     console.log("Upgraders: " + upgraders.length);
     const miners = _.filter(Game.creeps, creep => creep.memory.role == "miner");
     console.log("Upgraders: " + upgraders.length);
+    const attackers = _.filter(Game.creeps, creep => creep.memory.role == "attacker");
+    console.log("Attackers: " + attackers.length);
     const buildsites = Game.spawns["Spawn1"].room.find(FIND_CONSTRUCTION_SITES);
     const sources = Game.spawns["Spawn1"].room.find(FIND_SOURCES);
     const myRoomName = Game.spawns["Spawn1"].room.name;
@@ -19,6 +21,8 @@ const spawner = {
       const roomMemory = getRoomMemory(myRoomName);
       return (roomMemory.sources = roomMemory.sources || Game.rooms[myRoomName].find(FIND_SOURCES).map(source => source.id));
     }
+    const flag = Game.flags['Flag1'];
+    const enemytargets = Game.spawns["Spawn1"].room.find(FIND_HOSTILE_CREEPS);
     if (fuelers.length < 2) {
       const newName = "fueler" + Game.time;
       console.log("Spawning new fueler: " + newName);
@@ -36,12 +40,17 @@ const spawner = {
     if (builders.length < 2 && buildsites) {
       const newName = "Builder" + Game.time;
       console.log("Spawning new builder: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, { memory: { role: "builder" } });
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "builder" } });
     }
     if (upgraders.length < 2) {
       const newName = "Upgrader" + Game.time;
       console.log("Spawning new upgrader: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, MOVE, MOVE], newName, { memory: { role: "upgrader" } });
+    }
+    if (attackers.length < 3 && (flag || enemytargets)) {
+      const newName = "Attacker" + Game.time;
+      console.log("Spawning new attacker: " + newName);
+      Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, { memory: { role: "attacker" } });
     }
     if (Game.spawns["Spawn1"].spawning) {
       const spawnCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name];

@@ -58,6 +58,7 @@ const spawner = {
       const newName = "Repairer" + Game.time;
       console.log("Spawning new repairer: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: "repairer" } });
+    }
     if (Game.spawns["Spawn1"].spawning) {
       const spawnCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name];
       Game.spawns["Spawn1"].room.visual.text(

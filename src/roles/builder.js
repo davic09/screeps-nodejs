@@ -25,7 +25,7 @@ const builder = {
         creep.moveTo(buildsites[0], { visualizePathStyle: { stroke: "#ffffff" } });
        }
     }
-    if(energy > 0 && repairtargets.length > 0) {
+    if(energy > 0 && repairtargets.length > 0 && (!buildsites || buildsites[0] !== undefined)) {
       if(creep.repair(repairtargets[0]) == ERR_NOT_IN_RANGE) {
           creep.moveTo(repairtargets[0]);
       }

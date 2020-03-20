@@ -28,7 +28,7 @@ const spawner = {
     if (fuelers.length < 2) {
       const newName = "fueler" + Game.time;
       console.log("Spawning new fueler: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: "fueler" } });
+      Game.spawns["Spawn1"].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "fueler" } });
     }
     if (miners.length < sources.length) {
       const newName = "miner" + Game.time;

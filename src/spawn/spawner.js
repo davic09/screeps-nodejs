@@ -28,7 +28,7 @@ const spawner = {
     if (fuelers.length < 2) {
       const newName = "fueler" + Game.time;
       console.log("Spawning new fueler: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "fueler" } });
+      Game.spawns["Spawn1"].spawnCreep([CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "fueler" } });
     }
     if (miners.length < sources.length) {
       const newName = "miner" + Game.time;
@@ -36,13 +36,13 @@ const spawner = {
       const unassignedSources = getRoomSources(myRoomName).filter(roomSource => !minerAssignedSources.includes(roomSource));
       if (unassignedSources.length > 0) {
           console.log("Spawning new miner: " + newName);
-          Game.spawns["Spawn1"].spawnCreep([WORK, WORK, WORK, MOVE, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
+          Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
       }
     }
     if (builders.length < 1 && buildsites) {
       const newName = "Builder" + Game.time;
       console.log("Spawning new builder: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY,  MOVE], newName, { memory: { role: "builder" } });
+      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY,  MOVE], newName, { memory: { role: "builder" } });
     }
     if (upgraders.length < 1) {
       const newName = "Upgrader" + Game.time;

@@ -2,7 +2,7 @@ const repairer = {
     /** @param {Creep} creep **/
     run: function(creep) {
     const repairtargets = creep.room.find(FIND_STRUCTURES, {
-            filter: object => (object.hits < 2500 && object.structureType !== STRUCTURE_CONTROLLER)
+            filter: object => (object.hits < 10000 && object.structureType !== STRUCTURE_CONTROLLER)
         });
     const energy = creep.store[RESOURCE_ENERGY]
     const droppedenergy = creep.room.find(FIND_DROPPED_RESOURCES);

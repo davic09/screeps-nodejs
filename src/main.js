@@ -9,6 +9,7 @@ const attacker = require("./roles/attacker");
 const spawner = require("./spawn/spawner");
 const creepcleaner = require("./creepcleaner")
 const safemode = require("./safemode");
+const tower = require("./structures/tower");
 
 module.exports.loop = function () {
   console.log(`Current game tick is ${Game.time}`);
@@ -36,4 +37,5 @@ module.exports.loop = function () {
   spawner.run();
   creepcleaner.run();
   safemode.run();
+  tower.run();
 };

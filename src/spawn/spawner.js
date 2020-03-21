@@ -36,7 +36,7 @@ const spawner = {
       const unassignedSources = getRoomSources(myRoomName).filter(roomSource => !minerAssignedSources.includes(roomSource));
       if (unassignedSources.length > 0) {
           console.log("Spawning new miner: " + newName);
-          Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
+          Game.spawns["Spawn1"].spawnCreep([WORK,WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
       }
     }
     if (builders.length < 1 && buildsites) {
@@ -44,7 +44,7 @@ const spawner = {
       console.log("Spawning new builder: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY,  MOVE], newName, { memory: { role: "builder" } });
     }
-    if (upgraders.length < 2) {
+    if (upgraders.length < 5) {
       const newName = "Upgrader" + Game.time;
       console.log("Spawning new upgrader: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, CARRY,MOVE, MOVE], newName, { memory: { role: "upgrader" } });

@@ -44,10 +44,10 @@ const spawner = {
       console.log("Spawning new builder: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY,  MOVE], newName, { memory: { role: "builder" } });
     }
-    if (upgraders.length < 1) {
+    if (upgraders.length < 2) {
       const newName = "Upgrader" + Game.time;
       console.log("Spawning new upgrader: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: "upgrader" } });
+      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, CARRY,MOVE, MOVE], newName, { memory: { role: "upgrader" } });
     }
     if (attackers.length < 3 && (flag !== undefined || enemytargets[0] !== undefined)) {
       const newName = "Attacker" + Game.time;

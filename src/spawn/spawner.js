@@ -45,7 +45,7 @@ const spawner = {
       console.log("Spawning new builder: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY,  MOVE], newName, { memory: { role: "builder" } });
     }
-   /if (upgraders.length < 4) {
+   if (upgraders.length < 4) {
       const newName = "Upgrader" + Game.time;
       console.log("Spawning new upgrader: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "upgrader" } });

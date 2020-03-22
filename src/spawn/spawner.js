@@ -37,20 +37,20 @@ const spawner = {
       const unassignedSources = getRoomSources(myRoomName).filter(roomSource => !minerAssignedSources.includes(roomSource));
       if (unassignedSources.length > 0 ) {
           console.log("Spawning new miner: " + newName);
-          Game.spawns["Spawn1"].spawnCreep([WORK, WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
+          Game.spawns["Spawn1"].spawnCreep([WORK, WORK, WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
       }
     }
-    if (builders.length < 1 && buildsites) {
+    if (builders.length < 2 && buildsites) {
       const newName = "Builder" + Game.time;
       console.log("Spawning new builder: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([WORK, CARRY,  MOVE], newName, { memory: { role: "builder" } });
+      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, CARRY,  MOVE], newName, { memory: { role: "builder" } });
     }
    if (upgraders.length < 4) {
       const newName = "Upgrader" + Game.time;
       console.log("Spawning new upgrader: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "upgrader" } });
     }
-    if (attackers.length < 1 && (flag !== undefined || enemytargets[0] !== undefined)) {
+    /*if (attackers.length < 1 && (flag !== undefined || enemytargets[0] !== undefined)) {
       const newName = "Attacker" + Game.time;
       console.log("Spawning new attacker: " + newName);
       Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, { memory: { role: "attacker" } });

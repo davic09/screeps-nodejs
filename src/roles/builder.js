@@ -2,7 +2,12 @@ const builder = {
 
   /** @param {Creep} creep **/
   run: function(creep) {
-    const buildsites = creep.room.find(FIND_CONSTRUCTION_SITES);
+    const buildsites = creep.room.find(FIND_CONSTRUCTION_SITES, {
+      filter: buildsites =>
+      (buildsites.structureType == STRUCTURE_CONTAINER ||
+       buildsites.structureType == STRUCTURE_STORAGE ||
+       buildsites.structureType == STRUCTURE_EXTENSION)
+    });
     const energy = creep.store[RESOURCE_ENERGY]
     const droppedenergy = creep.room.find(FIND_DROPPED_RESOURCES);
     const ruins = creep.room.find(FIND_RUINS, {

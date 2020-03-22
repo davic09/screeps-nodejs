@@ -5,7 +5,7 @@ const tower = {
         const tower = Game.getObjectById('5e73e69dc68b4a2673c88d58');
         if (tower) {
             const closestDamagedWall = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (s) => s.hits < 4000 
+                filter: (s) => s.hits < 10000
                 && (s.structureType==STRUCTURE_WALL || s.structureType==STRUCTURE_RAMPART)
             });
             const closestDamagedEnergyStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {

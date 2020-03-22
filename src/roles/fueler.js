@@ -2,6 +2,11 @@ const fueler = {
   /** @param {Creep} creep **/
   run: function(creep) {
     const target = creep.room.find(FIND_DROPPED_RESOURCES);
+    const stores = creep.room.find(FIND_STRUCTURES, {
+      filter: structure => ((structure.structureType == STRUCTURE_CONTAINER ||
+              structure.structureType == STRUCTURE_STORAGE) && 
+              structure.store[RESOURCE_ENERGY] > 0)
+    });
     const energy = creep.store[RESOURCE_ENERGY]
     if (energy == 0) {
       if (target) {
@@ -19,6 +24,14 @@ const fueler = {
             creep.moveTo(ruin[0], { visualizePathStyle: { stroke: "#ffaa00" } });
         }
       }
+     /* else {
+        console.log('cond 1')
+        console.log(stores[0])
+        console.log(stores[0].store[RESOURCE_ENERGY])
+        if (creep.withdraw(stores[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+          creep.moveTo(stores[0], {visualizePathStyle: { stroke: "#ffffff"}});
+        }
+      }*/
     }  
       else {
       const deposits = creep.room
@@ -32,14 +45,14 @@ const fueler = {
               structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
         })
         .sort((s1, s2) => {
-          if (s1.structureType === STRUCTURE_TOWER || 
+          if (s1.structureType === STRUCTURE_SPAWN ||
+            (s1.structureType === STRUCTURE_TOWER && s2.structureType !== STRUCTURE_SPAWN) ||
             (s1.structureType === STRUCTURE_EXTENSION && s2.structureType === STRUCTURE_CONTAINER) ||
             (s1.structureType === STRUCTURE_EXTENSION && s2.structureType === STRUCTURE_STORAGE) ||
             (s1.structureType === STRUCTURE_EXTENSION && s2.structureType === STRUCTURE_SPAWN) ||
             (s1.structureType === STRUCTURE_CONTAINER && s2.structureType === STRUCTURE_STORAGE) ||
             (s1.structureType === STRUCTURE_CONTAINER && s2.structureType === STRUCTURE_SPAWN) ||
-            (s1.structureType === STRUCTURE_STORAGE && s2.structureType === STRUCTURE_SPAWN) || 
-            (s2.structureType === STRUCTURE_SPAWN)) {
+            (s1.structureType === STRUCTURE_STORAGE && s2.structureType === STRUCTURE_SPAWN)) {
             return -1; // s1 should be further up the list than s2
           }
           return 1; // s2 should be further up the list than s1

@@ -25,18 +25,19 @@ const spawner = {
     }
     const flag = Game.flags['Flag1'];
     const enemytargets = Game.spawns["Spawn1"].room.find(FIND_HOSTILE_CREEPS);
+
     if (fuelers.length < 2) {
       const newName = "fueler" + Game.time;
       console.log("Spawning new fueler: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "fueler" } });
+      Game.spawns["Spawn1"].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName, { memory: { role: "fueler" } });
     }
     if (miners.length < sources.length) {
       const newName = "miner" + Game.time;
       const minerAssignedSources = miners.map(miner => miner.memory.sourceID);
       const unassignedSources = getRoomSources(myRoomName).filter(roomSource => !minerAssignedSources.includes(roomSource));
-      if (unassignedSources.length > 0) {
+      if (unassignedSources.length > 0 ) {
           console.log("Spawning new miner: " + newName);
-          Game.spawns["Spawn1"].spawnCreep([WORK,WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
+          Game.spawns["Spawn1"].spawnCreep([WORK, WORK, WORK, MOVE], newName, { memory: { role: "miner" , sourceID: unassignedSources[0] } });
       }
     }
     if (builders.length < 1 && buildsites) {
@@ -44,12 +45,12 @@ const spawner = {
       console.log("Spawning new builder: " + newName);
       Game.spawns["Spawn1"].spawnCreep([WORK, CARRY,  MOVE], newName, { memory: { role: "builder" } });
     }
-    if (upgraders.length < 5) {
+   /if (upgraders.length < 4) {
       const newName = "Upgrader" + Game.time;
       console.log("Spawning new upgrader: " + newName);
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, CARRY,MOVE, MOVE], newName, { memory: { role: "upgrader" } });
+      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: "upgrader" } });
     }
-    if (attackers.length < 3 && (flag !== undefined || enemytargets[0] !== undefined)) {
+    if (attackers.length < 1 && (flag !== undefined || enemytargets[0] !== undefined)) {
       const newName = "Attacker" + Game.time;
       console.log("Spawning new attacker: " + newName);
       Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, { memory: { role: "attacker" } });
